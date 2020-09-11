@@ -6,7 +6,7 @@ import data.mytransforms as mytransforms
 from data.constant import tusimple_row_anchor, culane_row_anchor
 from data.dataset import LaneClsDataset, LaneTestDataset
 
-def get_train_loader(batch_size, data_root, griding_num, dataset, use_aux, distributed, num_lanes):
+def get_train_loader(batch_size, data_root, griding_num, dataset, use_aux, distributed):
     target_transform = transforms.Compose([
         mytransforms.FreeScaleMask((288, 800)),
         mytransforms.MaskToTensor(),
@@ -32,7 +32,7 @@ def get_train_loader(batch_size, data_root, griding_num, dataset, use_aux, distr
                                            simu_transform = simu_transform,
                                            segment_transform=segment_transform, 
                                            row_anchor = culane_row_anchor,
-                                           griding_num=griding_num, use_aux=use_aux, num_lanes = num_lanes)
+                                           griding_num=griding_num, use_aux=use_aux)
         cls_num_per_lane = 18
 
     elif dataset == 'Tusimple':
@@ -42,7 +42,7 @@ def get_train_loader(batch_size, data_root, griding_num, dataset, use_aux, distr
                                            simu_transform = simu_transform,
                                            griding_num=griding_num, 
                                            row_anchor = tusimple_row_anchor,
-                                           segment_transform=segment_transform,use_aux=use_aux, num_lanes = num_lanes)
+                                           segment_transform=segment_transform,use_aux=use_aux)
         cls_num_per_lane = 56
     else:
         raise NotImplementedError
